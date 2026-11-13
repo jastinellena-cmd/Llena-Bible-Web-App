@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A digital Bible reader with book, chapter, and verse search.">
+  <title>Word of Life | Bible Reader</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- LOGIN / REGISTER -->
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-decoration"></div>
+
+    <div class="auth-card">
+      <div class="brand-mark">✦</div>
+      <p class="eyebrow">YOUR DAILY SOURCE OF INSPIRATION</p>
+      <h1>Word of Life</h1>
+      <p class="auth-description">
+        Explore the Scriptures, discover meaningful passages,
+        and keep your favorite verses close.
+      </p>
+
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" id="loginTab">Log In</button>
+        <button type="button" class="auth-tab" id="registerTab">Create Account</button>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <label for="loginEmail">Email address</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+
+        <button type="submit" class="primary-btn auth-submit">Log In</button>
+        <p class="auth-message" id="loginMessage"></p>
+      </form>
+
+      <form id="registerForm" class="auth-form hidden">
+        <label for="registerName">Full name</label>
+        <input type="text" id="registerName" placeholder="Enter your name" required>
+
+        <label for="registerEmail">Email address</label>
+        <input type="email" id="registerEmail" placeholder="Enter your email" required>
+
+        <label for="registerPassword">Password</label>
+        <input type="password" id="registerPassword" placeholder="At least 6 characters" minlength="6" required>
+
+        <label for="confirmPassword">Confirm password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+
+        <button type="submit" class="primary-btn auth-submit">Create Account</button>
+        <p class="auth-message" id="registerMessage"></p>
+      </form>
+
+      <p class="auth-note">A peaceful space to read and reflect.</p>
+    </div>
+  </section>
+
+  <!-- MAIN APPLICATION -->
+  <div id="appScreen" class="app-screen hidden">
+
+    <header class="topbar">
+      <a href="#" class="brand" id="homeButton">
+        <span class="brand-icon">✦</span>
+        <span>Word of Life</span>
+      </a>
+
+      <div class="topbar-right">
+        <span class="welcome-text" id="welcomeText">Welcome!</span>
+        <button id="logoutButton" class="logout-btn">Log Out</button>
+      </div>
+    </header>
+
+    <main class="app-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-heading">
+          <span class="eyebrow">SCRIPTURES</span>
+          <h2>Explore Bible</h2>
+        </div>
+
+        <div class="sidebar-search">
+          <input type="search" id="bookSearch" placeholder="Search a Bible book...">
+        </div>
+
+        <div class="testament-tabs">
+          <button class="testament-btn active" data-testament="all">All</button>
+          <button class="testament-btn" data-testament="old">Old</button>
+          <button class="testament-btn" data-testament="new">New</button>
+        </div>
+
+        <div class="book-list" id="bookList"></div>
+
+        <div class="sidebar-bottom">
+          <button class="side-link active" data-view="reader">📖 Bible Reader</button>
+          <button class="side-link" data-view="favorites">♡ My Favorites</button>
+        </div>
+      </aside>
+
+      <!-- READER CONTENT -->
+      <section class="main-content">
+
+        <section class="hero">
+          <div>
+            <p class="eyebrow">READ • REFLECT • GROW</p>
+            <h1>Discover the Word.</h1>
+            <p>Find guidance, wisdom, and inspiration in every chapter.</p>
+          </div>
+          <div class="hero-symbol">✧</div>
+        </section>
+
+        <!-- REFERENCE SEARCH -->
+        <section class="search-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">QUICK SEARCH</p>
+              <h2>Find a Bible Passage</h2>
+            </div>
+          </div>
+
+          <form id="referenceForm" class="reference-form">
+            <div class="reference-input-wrap">
+              <span>⌕</span>
+              <input
+                type="text"
+                id="referenceInput"
+                placeholder="Example: Genesis 1:1-5 or John 3:16"
+                autocomplete="off"
+                required
+              >
+            </div>
+            <button type="submit" class="primary-btn" id="searchButton">Search Passage</button>
+          </form>
+
+          <p class="search-help">
+            Search a book, chapter, verse, or verse range. Example:
+            <strong>Genesis 1</strong>, <strong>Genesis 1:1</strong>,
+            or <strong>Psalm 23:1-6</strong>.
+          </p>
+        </section>
+
+        <!-- BOOK AND CHAPTER SELECTOR -->
+        <section class="selection-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">BROWSE SCRIPTURES</p>
+              <h2>Select a Book and Chapter</h2>
+            </div>
+          </div>
+
+          <div class="selector-grid">
+            <div>
+              <label for="bookSelect">Bible Book</label>
+              <select id="bookSelect"></select>
+            </div>
+
+            <div>
+              <label for="chapterSelect">Chapter</label>
+              <select id="chapterSelect"></select>
+            </div>
+
+            <div>
+              <label for="translationSelect">Translation</label>
+              <select id="translationSelect">
+                <option value="web">World English Bible (WEB)</option>
+                <option value="kjv">King James Version (KJV)</option>
+                <option value="bbe">Bible in Basic English (BBE)</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="readChapterButton" class="secondary-btn">Read Selected Chapter</button>
+        </section>
+
+        <!-- DAILY VERSE -->
+        <section class="daily-verse">
+          <div>
+            <p class="eyebrow">A VERSE FOR TODAY</p>
+            <h2>Daily Inspiration</h2>
+            <p id="dailyVerseText">Loading today's verse...</p>
+            <span id="dailyVerseReference"></span>
+          </div>
+          <span class="daily-decoration">“</span>
+        </section>
+
+        <!-- BIBLE READER -->
+        <section id="readerView" class="reader-panel">
+          <div class="reader-top">
+            <div>
+              <p class="eyebrow">YOUR READING SPACE</p>
+              <h2 id="passageTitle">Welcome to the Bible Reader</h2>
+              <p id="passageSubtitle">Select a book and chapter or search for a passage.</p>
+            </div>
+            <button id="favoritePassageButton" class="favorite-btn" disabled>
+              ♡ Save Passage
+            </button>
+          </div>
+
+          <div id="loadingMessage" class="loading-message hidden">
+            <span class="loader"></span>
+            <p>Loading Scripture...</p>
+          </div>
+
+          <div id="errorMessage" class="error-message hidden"></div>
+
+          <div id="verseContainer" class="verse-container">
+            <div class="empty-state">
+              <span>📖</span>
+              <h3>Your Bible reading starts here.</h3>
+              <p>Choose any Bible book and chapter to display its verses.</p>
+            </div>
+          </div>
+
+          <div class="reader-navigation">
+            <button id="previousChapterButton" class="secondary-btn" disabled>← Previous</button>
+            <button id="nextChapterButton" class="secondary-btn" disabled>Next →</button>
+          </div>
+        </section>
+
+        <!-- FAVORITES -->
+        <section id="favoritesView" class="favorites-panel hidden">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">SAVED SCRIPTURES</p>
+              <h2>My Favorite Verses</h2>
+            </div>
+          </div>
+          <div id="favoritesList" class="favorites-list"></div>
+        </section>
+
+        <footer class="footer">
+          <p>Word of Life Bible Reader</p>
+          <p>Scripture content provided through Bible API.</p>
+        </footer>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
